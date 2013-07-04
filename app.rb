@@ -4,7 +4,6 @@ require "sinatra"
 require "slim"
 require "sass"
 require "coffee-script"
-require "therubyracer"
 
 class TakahashiMethod < Sinatra::Base
 
