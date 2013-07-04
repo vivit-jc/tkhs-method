@@ -6,15 +6,13 @@ require "sass"
 require "coffee-script"
 
 class TakahashiMethod < Sinatra::Base
-
   get "/" do
-    redirect "/高橋メソッドを超簡単に実現するサービス|Powered by Sinatra|使い方|site pathに|内容直打ち|パイプ区切り|以上|例|http://tkhs-method.com/3兆円｜ほしい｜マジで|問題点|URL|やたら長い|長過ぎると|bad request error|ソース|https://github.com/wenoki/tkhs-method|作者|http://dec31.net/|Thanks."
+    @pages = ["高橋メソッドを超簡単に実現するサービス", "Powered by Sinatra", "使い方", "site pathに", "内容直打ち", "|で区切る", "以上", "例", "http://tkhs.dec31.net/3兆円|ほしい|マジで", "問題点", "URL", "クソ長い", "ソース", "https://github.com/wenoki/tkhs-method", "作者", "@wenoki", "http://dec31.net/", "Thanks."]
+    slim :application
   end
 
   get "/*" do |param|
     @pages = param.split "|"
-
-    p @pages.join(",")
+    slim :application
   end
-
 end

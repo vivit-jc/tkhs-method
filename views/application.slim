@@ -1,0 +1,61 @@
+doctype html
+html
+  head
+    title = @pages.first
+    script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"
+    sass:
+      *
+        margin: 0
+        padding: 0
+      body
+        > nav
+          > a
+            position: fixed
+            bottom: 16px
+            color: #aaa
+            font:
+              size: 200%
+            text:
+              decoration: none
+          > a#prev
+            display: none
+            left: 16px
+          > a#next
+            right: 16px
+        > p
+          margin: 0 0.5em
+          padding: 1.33em 0
+          text:
+            align: center
+          font:
+            size: 666%
+            weight: bold
+          letter-spacing: -0.05em
+    coffee:
+      $(document).ready ->
+        w = $(window)
+        p = $("body > p")
+        current = p.first()[0]
+        prev = $("a#prev")
+        next = $("a#next")
+
+        p.height w.height()
+
+        w.scroll ->
+          p.each ->
+            current = this if $(this).offset().top - $(this).height() / 8 < w.scrollTop()
+          if current is p.first()[0]
+            prev.hide()
+          else if current is p.last()[0]
+            next.hide()
+          else
+            prev.show()
+            next.show()
+          prev.attr "href", "##{parseInt(current.id) - 1}"
+          next.attr "href", "##{parseInt(current.id) + 1}"
+  body
+    nav
+      a#prev href="#0" == "&#x261c;"
+      a#next href="#1" == "&#x261e;"
+    - @pages.each_with_index do |page, i|
+      p id="#{i}" = page
